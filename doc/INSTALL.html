@@ -1,9 +1,9 @@
 <html>
 <head>
-<title>Logic Works - webSHOP</title>
+<title>webSHOP Installation</title>
 </head>
 <body>
-<h1>Logic Works - webSHOP</h1>
+<h1>webSHOP webERP&quot;s integrated shopping cart</h1>
 <h2>Prerequisites</h2>
 <ul>
 <li>1. webERP 4.11 or greater installed on the same web-server</li>
@@ -29,8 +29,8 @@
 <h3>$DatabaseName</h3>
 <p>The $DatabaseName must be set to the company database that the store should use for all it's data. Note that the mysql user name and password are retrieved from the webERP configuration file and so they are not necessary here. As webERP is a multi-company application it is necessary for webSHOP to identify the company (database) for which the installation should work with.</p>
 <h3>$Theme</h3>
-<p>Currently there is only one css $Theme called "default" so this must be left as is as must the other variables unless debugging information is required at run-time when these options for error_reporting should be set as per the php documentation and the $debug variable set to 1. To create a new theme copy the default.css to say yourtheme.css make any modifications necessary and change the config.php file line for the theme variable to:</p>
-<blockquote><i>$Theme='yourtheme.css';</i></blockquote>
+<p>Currently there is only one css $Theme called &quot;default&quot; so this must be left as is as must the other variables unless debugging information is required at run-time when these options for error_reporting should be set as per the php documentation and the $debug variable set to 1. To create a new theme copy the default.css to say yourtheme.css make any modifications necessary and change the config.php file line for the theme variable to:</p>
+<blockquote><i>$Theme=&quot;yourtheme.css&quot;;</i></blockquote>
 <br />
 <hr>
 <p>The store uses the data stored in the webERP config.php to obtain the mysql user and password to use in the connection to mysql.</p>
@@ -40,7 +40,7 @@ http://yourdomain/store/
 </i></blockquote>
 <p>should now show the following</p>
 <img src="images/webSHOP.jpg">
-<p>Now is the time to configure the web-shop inside webERP as follows:</p>
+<p>Now is the time to configure the webSHOP inside webERP as follows:</p>
 <h2>Configuring webSHOP inside webERP</h2>
 <p>Assuming the webERP installation is at:
 <blockquote><i>
