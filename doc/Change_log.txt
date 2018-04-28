@@ -1,0 +1,11 @@
+Change Log
+
+23/4/14 Added new includes/config.php options for ShopName, ShopDebtorNo and ShopBranchCode these settings in config.php over-ride the webERP shop config settings. This allows multiple webSHOP installations on the same webERP installation. However, the About Us, Terms and Conditions, FreightPolicy ContactUs pages are still configured in webERP and will be the same accross all webSHOPs off the same webERP installation 
+23/4/14 ItemDetails.php was not calculating tax correctly - fixed
+19/4/14 Checkout.php now processes SWIPE HQ correctly was resetting for new order before order paid
+19/4/14 Payment surcharge added to order correctly was missing discount percent of 0 to insert SQL
+19/4/14 Checkout.php now formats messages correctly using <div> rather than tables
+29/12/13 Updates to allow AusPost freight to live with no freight
+29/12/13 Add text to paypal process button to show that the button must be clicked to process payment
+29/12/13 Remove place order button when paypal being displayed.
+25/9/13 Ricard reported that discount was being applied twice - webERP recalculates discount matrix discount rate but webSHOP was sending net price with the order and then the discount matrix rate was recalcuated applying the discount twice. Now webSHOP creates the order with the gross price and the discount percent so the webSHOP order is the same when it displays in webERP.

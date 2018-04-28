@@ -1,0 +1,111 @@
+<html>
+<head>
+<title>Logic Works - webSHOP</title>
+</head>
+<body>
+<h1>Logic Works - webSHOP</h1>
+<h2>Prerequisites</h2>
+<ul>
+<li>1. webERP 4.11 or greater installed on the same web-server</li>
+<li>2. PHP 5.x SSL capable web-server with the following modules: curl, gettext (for multi-language), gd - which are required to run webERP in any event! Note that ssl (secure sockets layer is required to capture credit card details. This requires that the server have a ssl certificate installed - this is only for encryption and there is no requirement to have the certificate registered, but it is advisable to give users confidence in the authenticity of the site.</li>
+</ul>
+<p>Extract the webSHOP.zip archive under your web-root. By default the URL will be http://yourdomain/webSHOP/ You can change the folder name to Store or something you prefer, or have a sub-domain point directly to this folder by configuring you web-hosting arrangements.</p>
+<p>with a text editor open the file store/includes/config.php - this file contains the following:</p>
+<blockquote><i>
+&lt;?php
+<br/>$PathPrefix = &quot;../webERP/&quot;; //path to main webERP installation
+<br/>$DatabaseName = &quot;logicworks&quot;; //the company database that will hold the data for the webSHOP
+<br/>$Theme = &quot;default&quot;; //only have this theme currently
+<br/>$GoogleAnalyticsID = &quot;&quot;;//Need to register with google analytics to get this
+<br/>$GoogleAnalyticsDomain = &quot;yourdomain.com&quot;;
+<br/>$StrictXHTML=False;
+<br/>error_reporting (E_ALL &amp; ~E_NOTICE);
+<br/>$debug=0;
+<br/>?&gt;</i>
+</blockquote>
+
+<h3>$PathPrefix</h3>
+<p>The $PathPrefix must be set to the relative path from the store directory to the webERP installation directory on the web-server.</p>
+<h3>$DatabaseName</h3>
+<p>The $DatabaseName must be set to the company database that the store should use for all it's data. Note that the mysql user name and password are retrieved from the webERP configuration file and so they are not necessary here. As webERP is a multi-company application it is necessary for webSHOP to identify the company (database) for which the installation should work with.</p>
+<h3>$Theme</h3>
+<p>Currently there is only one css $Theme called "default" so this must be left as is as must the other variables unless debugging information is required at run-time when these options for error_reporting should be set as per the php documentation and the $debug variable set to 1. To create a new theme copy the default.css to say yourtheme.css make any modifications necessary and change the config.php file line for the theme variable to:</p>
+<blockquote><i>$Theme='yourtheme.css';</i></blockquote>
+<br />
+<hr>
+<p>The store uses the data stored in the webERP config.php to obtain the mysql user and password to use in the connection to mysql.</p>
+<p>Pointing a browser to:</p>
+<blockquote><i>
+http://yourdomain/store/
+</i></blockquote>
+<p>should now show the following</p>
+<img src="images/webSHOP.jpg">
+<p>Now is the time to configure the web-shop inside webERP as follows:</p>
+<h2>Configuring webSHOP inside webERP</h2>
+<p>Assuming the webERP installation is at:
+<blockquote><i>
+http://yourdomain/webERP/
+</i></blockquote>
+<p>Login to webERP and go to webSHOP configuration:</p>
+<img src="images/webSHOPConfig.png">
+<p>Populate the fields as required.</p>
+<ul>
+	<li><h3>Test Mode or Live</h3>
+		Set to Test mode until all the settings are completed. In test mode it is not possible to complete a live payment. The payment gateways with a test environment will direct the transaction to the sandbox/test environment.</li>
+	<li><h3>Shop Name</h3>
+		The name of the shop - this is displayed on the header of each page of the webSHOP</li>
+<li><h3>Shop Title</h3>
+		The title of the shop - is displayed on the tab of the browser to indicate what the browser tab contains</li>
+<li><h3>Shop Manager Email</h3>
+		The email address of the webSHOP manager. The webSHOP manager will receive an email advising new customers have registered and also the confirmation of orders placed.</li>
+<li><h3>Default Web Shop Customer Acount:</h3>
+		The default webSHOP customer account must a valid webERP customer. The settings used in the webSHOP are all inherited from the settings of this customer. i.e. the prices displayed in the webSHOP are based on the sales type of this customer, the currency displayed, the language of the interface etc etc. Before a sale can actually be made the customer must register and create her own account, so this customer account will have no transactions against it. It's only purpose is to provide the necessary information to webSHOP for how the store should behave.</li>
+<li><h3>Default Web Shop Branch Code:</h3>
+		The default webSHOP customer branch code should be a valid branch code of the customer selected above for the default webSHOP customer account. The same comments above apply. The defaults that are used include the default sales person, sales area. All new webSHOP customers will inherit these settings.</li>
+<li><h3>Privacy Statement</h3>
+		The privacy statement entered here should be plain html text with no line breaks (they are ignored anyway). This html will form the page in webSHOP that displays to customers who may be concerned about the store's policy in relation to privacy and storage of personal information or credit card details. The store does not retain details of credit card as they are processed by the 3rd party payment gateway.</li>
+<li><h3>Terms and Conditions</h3>
+		The Terms and conditions should be entered here using html (without line breaks). This html code forms the page displayed to customers when they click on the link to view their terms and conditions.</li>
+<li><h3>About Us</h3>
+		The html text entered here is used to render the page displayed to customers when they click on the &quot;About Us&quot; page.</li>
+<li><h3>Shop Name</h3>
+		The name of the shop - this is displayed on the header of each page of the webSHOP</li>
+
+</ul>
+<h2>Config Screen 2:</h2>
+<img src="images/ConfigScreen2.jpg">
+<ul>
+	<li><h3>Show Only Items With Available Stock</h3>
+		This setting determines how webSHOP will display items where there is no stock. With this set to &quot;No&quot; all items that are defined in the webERP sales categories will display and if there is no stock currently they will display the stock quantity as &quot;Arriving Soon&quot;. With this setting set to &quot;Yes&quot; then the item will not display at all. This is useful if the shop should only display items that are on hand currently.</li>
+	<li><h3>Shop/Hide Quantity on Hand Column</h3>
+               This setting allows the quantity on hand column to be hidden completely - where the store does not wish to display quantities on hand. By default if the quantity on hand is more than 20 then the quantity on hand displays as 20+ rather than displaying the actual quantity on hand.</li>
+        <li><h3>Stock Locations</h3>
+              This setting allows the store to display the total on hand accross a number of webERP locations. Where internal transfers or fulfillment of webSHOP orders could be done from a number of inventory locations. This is a multi-selection but at least one webERP inventory location should be selected.</li>
+        <li><h3>Allow Payment Surcharges</h3>
+              Increasingly the financial insitutions fees associated with payment make up a significant part of the cost of the transaction and customers should be allowed to choose how they wish to pay. webSHOP allows the cost of the payment processing method chosen to be included in the cost of the order. Some businesses may elect to absorb this cost and this feature can be turned off with this setting.</li>
+        <li><h3>Surcharges Stock Item</h3>
+              Where the payment surcharges option is used, this setting allows a webERP item code to be selected that will be used in the order to reflect the payment fee. This should be service item - with the general ledger posting set up to credit the bank charges - rather than sales. This is done using the inventory category of the item or the sales area of the webSHOP customer and the sales GL posting settings in webERP. Orders created in webERP then reflect the surcharges using this item and will appear on invoices to the customer using this item.</li>
+</ul>
+<h2>Payment Method Options</h2>
+webSHOP can receive and process payments from customers using, PayPal or a number of credit card gateways. This is where the payment options presented to the customer are configured.
+<ul>
+<li><h3>Allow Bank Transfers</h3>
+              If the webSHOP instance should allow bank transfers then this should be enabled here. Bank transfers incurr no cost to the store as the costs are all bourne by the customer. However, it is possible that the customer may not pay. For this reason orders created for customers that elect to pay by bank transfer are created only as quotations. When payment is received the receipt must be processed inside webERP as per any other customer receipt and the webSHOP created quotation must be changed to a sales order before it can be fulfilled.</li>
+<li><h3>Bank Transfer Surcharge</h3>
+              Although the expectation is that no surcharge should apply to bank transfers it is still possible to add a transaction charge as a percentage of the amount collected.</li>
+<li><h3>Allow Pay Pal Payment</h3>
+              If the webSHOP instance should allow payments to be made using <a href="https://www.paypal.com/nz/webapps/mpp/express-checkout">PayPal Express</a> then this should be enabled here. It is necessary of course to register a merchant account with PayPal and this incurrs costs as a percentage of the money collected - at the time of writing 3.4% plus a fixed transaction charge of NZD $0.45. The </li>
+<li><h3>Pay Pal Bank Account</h3>
+			  This allows selection of the webERP bank account that is used for recording transactions into your PayPal account. This bank account allows webERP reconciliation of transactions through your PayPal account.</li>
+<li><h3>Pay Pal Commission Account</h3>
+			  This allows selection of we webERP general ledger account that is used for recording the commission costs incurred on collections into your PayPal account. The integration automatically posts the commission to the general ledger.</li>
+<li><h3>Pay Pal Surcharge</h3>
+			  The surcharge that should apply to money collected via PayPal Express. The percentage entered here is extended by the amount of the sale and the amount calculated added to the amount to the payment due.</li>
+<li><h3>Pay Pal User Password and Signature</h3>
+			  The values for these fields are provided by your <a href="https://www.paypal.com/nz/webapps/mpp/express-checkout">PayPal Express</a> merchant account. The paypal User is the paypal user email address for the api - not the one you use to make payments but the one they give you when you register for paypal express checkout. See <a href="https://www.youtube.com/watch?v=fx0BjQF0KuAfor">This video for setting up paypal express checkout</a>. This will also explain the paypal signature - which is another level of security ... a second password effectively</li>
+</ul>
+Similar entries are available for PayPal Pro or Pay Flow Pro - PayPal Pro is only available in the US and Canada and PayFlow Pro is available through PayPal parnters world wide.
+<h2>Populating the webSHOP</h2>
+<p>webSHOP is effectively part of webERP. To determine the items to display in the webSHOP the webERP sales categories need to be setup. These sales categories define the structure of the menu displayed in the webSHOP. The webERP sales categories allow for any depth of sales categories, with a top level and any number of sub-categories. Within each sales category it is possible to define any number of items. When these items display in webSHOP they do so with the pictures defined in webERP and using the pricing defined for the default webSHOP customer. If another customer logs into webSHOP - then prices will display in their currency and using their price list.</p>
+</body>
+</html>

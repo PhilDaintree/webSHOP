@@ -1,0 +1,1199 @@
+html {
+	overflow: -moz-scrollbars-vertical;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	background-color: #FFF; 
+	color: #000000;
+	font-family: Arial, Helvetica, sans-serif;
+	margin: 0px;
+	padding: 0px;
+}
+
+body, td, th, input, textarea, select, a {
+	font-size: 12pt;
+}
+
+a img {border: none;}
+
+h1 {
+	color: #636E75;
+	font-family: Verdana;
+	margin-top: 0px;
+	margin-bottom: 14pt;
+	font-size: 32px;
+	font-weight: normal;
+	text-shadow: 0 0 2px rgba(0, 0, 0, .02);
+}
+
+h2 {
+	color: #000000;
+	font-size: 14pt;
+	margin-top: 0px;
+	margin-bottom: 5px;
+}
+p {
+	margin-top: 0px;
+	margin-bottom: 20px;
+}
+
+tr {
+	border-bottom: 1px solid #636E75;
+}
+
+tr.table_heading {
+	color: #FFF;
+	background: #585858;
+	text-align:left;
+}
+td.number {
+	text-align:right;
+}
+
+td.total {
+	border-bottom: 2px solid #444444;
+	border-top: 1px solid #444444;
+}
+table.cart_summary {
+	width: 100%;
+	text-shadow: 1px 1px 1px #fff;
+}
+table.cart_summary th {
+	font-size: 1em;
+	padding: 1px;
+	text-align: center;	
+}
+table.cart_summary td {
+	font-size: 0.75em;
+	padding: 1px;
+	font-weight: bold;
+}
+
+
+* html td:hover {
+	background: transparent;
+}
+
+
+
+a, a:visited, a b {
+	color: #38B0E3;
+	text-decoration: underline;
+	cursor: pointer;
+}
+a:hover {
+	text-decoration: none;
+}
+
+a.link_button, input.button, button {
+	text-decoration: none;
+	padding: 5px 3px;
+	/* margin-right: 5px; */
+	color: white;
+	text-align: center;
+	display: block;
+	background: url(button-bg.png);
+	border-radius: 5px; /*w3c border radius*/
+	border: none;
+}
+
+
+a.register_button {
+	text-decoration: none;
+	height:26px;
+	margin: 7px 5px 0 0;
+	text-align: top;
+	display: block;
+	line-height:50px;
+	
+	background: url(button-bg.png);
+	border-radius: 5px; /*w3c border radius*/
+	border: none;
+}
+
+a.AddToCart:hover{
+	color: #EEE8AA;
+}
+
+
+form {
+	padding: 0;
+	margin: 0;
+	display: inline;
+}
+input[type='text'], input[type='password'], textarea {
+	background: #F8F8F8;
+	border: 1px solid #CCCCCC;
+	padding: 3px;
+	margin-left: 0px;
+	margin-right: 0px;
+}
+input.number{
+	text-align:right;
+}
+input.required, select.required {
+	background:#EEE8AA;
+}
+input.error, label.error, select.error {
+	border: 2px solid red;
+	color: red;
+}
+div.error{
+	background-color:#fddbdb;
+	color:red;
+	width: 50%;
+	margin-left:auto;
+	margin-right:auto;
+	text-align: center;
+	padding: 5px 5px 5px 5px;
+	border:1px solid red;
+	border-radius: 10px;
+}
+
+div.info{
+    color: #aa0000;;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 5px;
+    text-align: center;
+    width: 96%;
+}
+
+div.success{
+	background-color:light-green;
+	color:green;
+	width: 50%;
+	margin-left:auto;
+	margin-right:auto;
+	text-align: center;
+	padding: 5px 5px 5px 5px;
+	border:1px solid green;
+	border-radius: 10px;
+}
+
+select {
+	background: #F8F8F8;
+	border: 1px solid #CCCCCC;
+	padding: 2px;
+}
+
+select.cart_summary_currency {
+	background: #585858;
+	border: 0px;
+	font-size: 8px;
+	color: #FFF;
+}
+
+#header_block {
+    height: 110px;
+    margin: 0 auto;
+    max-width: 1130px;
+    width: 100%;
+	padding: 5px;
+}
+#shop_logo {
+	margin-top:2px;
+	height:105px;
+	float:left;
+	left: -15px;
+	position: relative;
+}
+#shop_title {
+	margin-top:10px;
+	height:50px;
+	width:50%;
+	float:left;
+}
+#cart_summary {
+    background-image: url("cart_summary_background.jpg"); 
+    border: 3px solid #fff;
+    border-radius: 5px 5px 5px 5px;
+    box-shadow: 0 0 10px #fff;
+    float: right;
+    height: 70px;
+    margin-top: 15px;
+    padding: 0 10px;
+    position: relative;
+    text-align: left;
+    width: 20%;
+}
+
+#search_description {
+	float: right;
+	margin:5px 4px 0 0;
+	width:25%;
+	background: #FFF;
+	padding: 1px 1px 1px 10px;
+	height: 25px;
+	border: 1px solid #CCCCCC;
+	-webkit-border-radius: 5px 5px 5px 5px;
+	-moz-border-radius: 5px 5px 5px 5px;
+	-khtml-border-radius: 5px 5px 5px 5px;
+	border-radius: 5px 5px 5px 5px;
+}
+
+#search_description input {
+	border:none;
+	width:250px;
+}
+
+#header_block .links {
+	float:left;
+	font-size: 8pt;
+}
+#header_block .links span {
+	float:left;
+	font-size: 8pt;
+	padding: 5px 15px 2px 7px;
+	border-right: 1px solid #CCC;
+}
+#header_block .links a {
+	float: left;
+	display: block;
+	padding: 5px 7px 2px 7px;
+	color: #38B0E3;
+	text-decoration: none;
+	font-size: 8pt;
+}
+#header_block .links a + a {
+	margin-left: 8px;
+	border-left: 1px solid #CCC;
+}
+
+
+#menu_block {
+	display: none;
+}
+
+#column_left {
+	float: left;
+	width: 15%;
+	min-height: 400px;
+}
+#column_heading {
+	background: #AA0000;
+    color: #FFFFFF;
+    font-size: 14pt;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    text-transform: uppercase;
+	border-right: 1px solid #0044AA;
+}
+
+#column_left ul {
+	list-style: none;
+	width: 100%;
+	padding: 0;
+	margin: 0;
+	background: #aa0000;
+}
+#column_left > ul > li {
+	position: relative;
+	width: 100%;
+	border-top: 1px solid #D40000;
+	border-bottom: 1px solid #800000;
+}
+
+#column_left > ul > li > ul {
+	background: #800000;
+}
+
+#column_left > ul > li > a {
+    color: #FFFFFF;
+    display: block;
+    padding: 0 2px 2px 5px;
+    position: relative;
+    text-decoration: none;
+    width: 95%;
+}
+#column_left > ul > li:hover > a {
+	background: #800000;
+	color:#FFF;
+}
+
+#column_left > ul > li ul > li > a {
+	color: #fff;
+	margin-left:15px;
+	display: block;
+	white-space: nowrap;
+	font-size:11pt;
+	text-decoration: none;
+}
+#column_left > ul > li ul > li > a:hover {
+	background: #550000;
+	color:#FFF;
+}
+
+#column_left > ul > li ul > li ul > li a {
+	/* color: #636E75; */ 
+	margin-left:25px;
+	display: block;
+	white-space: nowrap;
+	font-size:10pt;
+}
+#column_left > ul > li ul > li ul > li a:hover {
+	background: #000000;
+	color:#FFF;
+}
+
+.sublevel {
+    display: none;
+    float: left;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    z-index: 9;
+}
+
+ul li:hover .sublevel {
+    display: block;
+    float: right;
+    position: absolute;
+    right: -160px;
+	top: 0;
+}
+
+/* end of left menu sales categories styles */
+
+#content_block {
+	background-color: #FFFFFF;
+	position:relative;
+	max-width: 1140px;
+	width:100%;
+	margin: 0 auto;
+}
+
+
+
+
+/* Styles for checkout */
+#login {
+	float: left;
+	padding: 2px 2px 2px 2px;
+	width: 49%;
+	min-height: 100px;
+	}
+#register_button{
+	float: left;
+	margin-bottom: 10px;
+	padding: 2px 2px 2px 2px;
+	width: 49%;
+	min-height: 100px;
+	}
+#register{
+	width: 96%;
+	box-shadow: 0 0 5px #000;
+	border-radius: 5px;
+	position: relative;
+	float:left;
+	margin: 0 0 0 10px;
+	border: 1px solid #000;
+	display: block;
+	padding: 10px;
+	background: #e6e6e6;
+}
+#credit_card_info {
+	margin-left: auto ;
+	margin-right: auto ;
+	padding: 3px 3px 3px 3px;
+	width: 60%;
+	border-radius: 10px 10px 10px 10px;
+	box-shadow: 0px 2px 2px #DDDDDD;
+	border: 1px solid #636E75;
+}
+
+#confirm_delivery_address {
+	width: 95%;
+	box-shadow: 0 0 5px #000;
+	border-radius: 5px;
+	position: relative;
+	float:left;
+	margin: 0 0 0 10px;
+	border: 1px solid #000;
+	display: block;
+	padding: 10px;
+	background: #e6e6e6;
+	min-height:300px;
+}
+#payment_method {
+	width: 95%;
+	box-shadow: 0 0 5px #000;
+	border-radius: 5px;
+	position: relative;
+	float:left;
+	margin: 0 0 0 10px;
+	border: 1px solid #000;
+	display: block;
+	padding: 10px;
+	background: #e6e6e6;
+	min-height:300px;
+}
+#footer_block {
+	width:100%;
+	clear: both;
+	text-align:center;
+}
+
+
+/* Custom CSS by Karigon */
+
+#content_inner {
+	position: relative;
+	float: left;
+	width: 100%;
+	background: #fff;
+}
+
+.column_main {
+	float: left;
+	margin: 0 0 0 5px;
+	position: relative;
+	width: 84%;
+}
+
+.column_main h1 {
+    float: left;
+    font-size: 14pt;
+    height: 30px;
+    left: -5px;
+    line-height: 30px;
+    margin-bottom: 5px;
+    position: relative;
+    text-align: center;
+    text-transform: uppercase;
+    width: 101.1%;
+	/* border-left: 1px solid #00112B; */
+}
+
+/* The main grid of items are displayed inside individual .prodbox divs */
+.prodbox {
+    border: 1px solid #000000;
+    border-radius: 5px 5px 5px 5px;
+    box-shadow: 0 0 5px #000000;
+    float: left;
+    /* display:inline-block; */
+    margin: 7px;
+    overflow: hidden;
+    position: relative;
+    width: 23%;
+}
+
+.prodbox .code_column {
+	background: #012f6a;
+	padding: 5px;
+	text-align: center;
+	color: #fff;
+	position: relative;
+	float:left;
+	width: 100%;
+}
+
+.prodbox .description_column {
+	position: relative;
+	float:left;
+	width: 100%;
+	min-height: 80px;
+	max-height: 80px;
+}
+
+.prodbox .price_column {
+	position: relative;
+	float:left;
+	width: 100%;
+}
+
+.prodbox .price_column_label {
+	position: relative;
+	float:left;
+	width: 35%;
+	text-align: right;
+	font-size: 0.8em;
+	line-height: 22px;
+}
+
+.prodbox .price_column_label_excl {
+	position: relative;
+	float:left;
+	text-align: left;
+	font-size: 0.8em;
+	line-height: 22px;
+	left: 2px;
+}
+
+.prodbox .price_column_value {
+	position: relative;
+	float:left;
+	text-align: left;
+	font-weight: bold;
+}
+
+.prodbox .qoh_column {
+	position: relative;
+	float:left;
+	width: 100%;
+}
+
+.prodbox .qoh_column_label {
+	position: relative;
+	float:left;
+	width: 35%;
+	text-align: right;
+	font-size: 0.8em;
+	line-height: 22px;
+}
+
+.prodbox .qoh_column_value {
+	position: relative;
+	float:left;
+	text-align: left;
+	font-weight: bold;
+}
+
+.prodbox .image_column {
+	position: relative;
+	margin: 0 auto;
+	text-align: center;
+}
+
+.prodbox .image_column img {
+/*	max-width: 175px;
+	max-height: 175px;
+*/	height:175px;
+	width:175px;
+	max-width:100%; 
+	max-height:100%;
+	}
+.prodbox .button_column {
+    float: right;
+    margin: 0px;
+    position: relative;
+    width: 60%;
+}
+
+.prodbox .view_order_label {
+	position: relative;
+	float:left;
+	width: 100%;
+	text-align: center;
+	font-size: 0.8em;
+	line-height: 22px;	
+}
+
+.prodbox .view_order_label a {
+	text-decoration: none;
+}
+
+.quantity_ordered_column {
+	float: left;
+	position: relative;
+	text-align: center;
+	width: 20%;
+	margin-left: 15px;
+}
+
+.quantity_ordered_column > input {
+	height: 23px;
+	width: 100%;
+}
+
+.navbar {
+	width: 100%;
+	position: relative;
+	max-width: 1140px;
+	margin: 0 auto;
+	height: 40px;
+	background-color: #012f6a;
+	border-radius: 5px 5px 0 0;
+}
+
+.searchbar {
+	width: 100%;
+	position: relative;
+	max-width: 1140px;
+	margin: 0 auto;
+	height: 40px;
+	background-color: #fff;
+}
+
+
+.header_login {
+	position: relative;
+	float: right;
+	color: #fff;
+}
+
+.header_login .error {
+	display: none;
+}
+
+.header_login .required {
+	width: 175px;
+}
+
+.header_login .required.username.error, .header_login .required.password.error {
+	border: 1px solid #800000;
+	display: block;
+}
+
+.header_login .required.password {
+	width: 100px;
+}
+
+.top-links .header_login a.link_button, .top-links .header_login input.button {
+	padding: 3px;
+}
+.top-links {
+	position: relative;
+	float: left;
+}
+
+.top-links a, .top-links a:visited, .top-links a:hover {
+	text-decoration: none;
+	color: #fff;
+	padding: 0 10px;
+	font-size: 0.9em;
+	line-height: 40px;
+}
+
+.top-links ul {
+	float: left;
+	list-style: none outside none;
+	margin: 0;
+	padding: 0;
+	position: relative;
+}
+
+.top-links li {
+	position: relative;
+	float: left;
+	border-left: 1px solid #00112b;
+	border-right: 1px solid #0044aa;
+}
+
+.top-links li:hover {
+	background: #002255;
+}
+
+.top-links li.header_login {
+    border-left: 1px solid #00112B;
+    border-right: 0 none;
+    color: #FFFFFF;
+    float: left;
+    font-size: 0.9em;
+    height: 40px;
+    line-height: 40px;
+    padding: 0 5px;
+    position: relative;
+    text-decoration: none;
+}
+
+.top-links li.header_login a {
+	font-size: 1em;
+	padding: 0;
+}
+
+.top-links li.header_login:hover {
+	background: #012f6a;
+}
+
+.top-links .header_login input {
+    float: left;
+    font-size: 0.9em;
+    margin: 7px 5px 0 0;
+    position: relative;
+	border-radius: 5px;
+}
+
+.info h2 {
+    line-height: 25px;
+}
+
+/* Register Page */
+
+.row {
+	position: relative;
+	float:left;
+	width: 100%;
+}
+
+.row-left {
+	position: relative;
+	float:left;
+	width: 30%;
+}
+
+.row-right {
+	position: relative;
+	float:left;
+	width: 69%;
+}
+
+/****************/
+
+.refreshqty {
+	position: relative;
+	float: right;
+	width: 70px;
+	margin: 4px 0 0 10px;
+	display: block;
+}
+
+.row .headings {
+	border-bottom: 1px solid #666;
+	margin: 0 0 10px 0;
+	display: block;
+	font-weight: bold;
+}
+
+.row.totalvalue {
+	border-bottom: 1px solid #666;
+	border-top: 1px solid #666;
+	height: 30px;
+	line-height: 30px;
+	font-weight: bold;
+	margin: 8px 0;
+}
+
+.description_column {
+	position:relative;
+	float: left;
+	line-height: 30px;
+	max-width: 500px;
+	overflow: hidden;
+	display: block;
+	text-align: center
+}
+.paymethod_column {
+	position:relative;
+	float: left;
+	line-height: 30px;
+	display: block;
+	text-align: center;
+	width:60%;
+}
+.surcharge_column {
+	position:relative;
+	float: left;
+	line-height: 30px;
+	display: block;
+	text-align: center;
+	width:20%;
+}
+
+.price_column {
+	position:relative;
+	float: right;
+	width:75px;
+	text-align: right;
+	display: block;
+	line-height: 30px;
+}
+
+.number {
+	position:relative;
+	float: right;
+	width: 60px;
+	margin: 0 15px 0 0;
+	text-align: right;
+	display: block;
+}
+
+#shopping_cart .quantity_heading {
+	right: 165px;
+	line-height: 30px;
+	position:relative;
+	float: right;
+	width: 60px;
+	margin: 0 15px 0 0;
+	text-align: left;
+	display: block;
+}
+
+.totalnumber {
+	position:relative;
+	float: right;
+	width: 100px;
+	text-align: right;
+	display: block;
+	line-height: 30px;
+	margin: 0 6px 0 0;
+}
+
+.total_label {
+	position:relative;
+	float: right;
+	width: 250px;
+	text-align: right;
+	display: block;
+}
+
+.tax_label {
+	font-size: 0.7em;
+	font-weight: normal;
+}
+
+.number_total {
+	position:relative;
+	float: right;
+	width: 100px;
+	text-align: right;
+	display: block;
+	margin: 0 6px 0 0;
+}
+
+.potxt {
+	font-weight: bold;
+	line-height: 48px;
+	font-size: 0.9em;
+}
+
+#shopping_cart .link_button {
+	float: right;
+	position: relative;
+	width: 265px;
+	margin: 10px 0;
+	display: block;
+}
+
+#shopping_cart {
+	width: 96%;
+	box-shadow: 0 0 5px #000;
+	border-radius: 5px;
+	position: relative;
+	float:left;
+	margin: 0 0 0 10px;
+	border: 1px solid #000;
+	display: block;
+	padding: 10px;
+	background: #e6e6e6;
+}
+
+/* Confirm Delivery Address Page */
+
+#login_panel {
+	width: 70%;
+	box-shadow: 0 0 5px #000;
+	border-radius: 5px;
+	position: relative;
+	left:100px;
+	float:left;
+	margin: 0 0 0 10px;
+	border: 1px solid #000;
+	display: block;
+	padding: 10px;
+	background: #e6e6e6;
+}
+
+
+panel {
+	width: 80%;
+	box-shadow: 0 0 5px #000;
+	border-radius: 5px;
+	position: relative;
+	float:left;
+	margin: 0 0 0 10px;
+	border: 1px solid #000;
+	display: block;
+	padding: 10px;
+	background: #e6e6e6;
+}
+
+#payment_method .row .row-label {
+	position: relative;
+	float:left;
+	width:10%;
+	font-weight: bold;
+}
+#payment_method .row .row-value {
+	margin: 0 0 1px 10px;
+	float: left;
+}
+
+.panel .row {
+
+}
+.panel .row-left {
+	width: 49%;
+}
+.panel .row-label {
+	font-weight: bold;
+	line-height: 25px;
+	margin-top: 5px;
+}
+.panel .row-value {
+	position: relative;
+	left: 10px;
+	float: left;
+}
+.panel .row-right {
+	position: relative;
+	left: 20px;
+	width: 49%;
+}
+.panel .button {
+	float: right;
+	position: relative;
+	width: 265px;
+	margin: 10px 0;
+	display: block;
+	border: none;
+	padding: 4px 3px;
+}
+
+.payoptions {
+    float: left;
+    margin: 10px auto 0;
+    min-height:80px;
+    position: relative;
+    width: 100%;
+}
+
+.row.center .button  {
+	float: left;
+	position: relative;
+	margin: 0 10px;
+}
+
+.row.center .button {
+	float: right;
+}
+
+.row.center {
+    float: left;
+    margin: 0 auto;
+    position: relative;
+    width: 100%;
+}
+
+.row.center-confirm {
+	width: 100%;
+}
+
+.row.center-confirm {
+	float: left;
+	position: relative;
+	margin: 0 10px;
+	border: none;
+	padding: 4px 10px;
+}
+
+.row.center-confirm .button {
+	float: right;
+	position: relative;
+	margin: 0 10px;
+	padding: 4px 10px;
+	border: none;
+}
+
+.loginleft {
+	width: 49%;
+	min-height: 125px;
+}
+
+.registerright {
+	min-height: 125px;
+}
+
+.loginbutton .button {
+	position: relative;
+	float: left;
+	
+}
+
+.regbutton .button {
+	position: relative;
+	float: left;
+}
+
+.loginpassword-value input.required, .loginpassword-value select.required, .loginemail-value input.required, .loginemail-value select.required {
+	width: 250px;
+}
+
+/*********************************/
+/** Item Page **/
+
+.full_description_box.itempage .main_image {
+    float: left;
+    max-width: 400px;
+    position: relative;
+    width: 100%;
+}
+
+h1.prodh1 {
+    background: none repeat scroll 0 0 transparent;
+    border-bottom: 1px solid #800000;
+    border-radius: 0 0 0 0;
+    color: #800000;
+    font-weight: bold;
+    text-align: left;
+	width: 55%;
+	position: relative;
+	float: right;
+	border-left: none;
+}
+
+.full_description_box.itempage {
+    border: 1px solid #000000;
+    border-radius: 5px 5px 5px 5px;
+    box-shadow: 0 0 5px #000000;
+    height: 700px;
+    margin: 10px 0 0;
+    padding: 5px;
+	position: relative;
+	float: left;
+	width: 99%;
+
+}
+
+.full_description_box.itempage .long_description {
+	float: right;
+	position: relative;
+	width: 55%;
+	display: block;
+	overflow: auto;
+	overflow-x: hidden;
+	max-height: 630px;
+	min-height: 630px;
+}
+
+.bordersep {
+	border-right: 1px solid #ccc;
+	position: relative;
+	float: left;
+	height: 600px;
+	top: 51px;
+	padding: 0 0 0 13px;
+}
+
+.full_description_box.itempage .image_column {
+    float: left;
+    max-width: 400px;
+    position: relative;
+    width: 100%;
+}
+
+.full_description_box.itempage .image_column img{
+    margin: 0 auto;
+}
+.full_description_box.itempage .itemdetailscont {
+	position: relative;
+	width: 65%;
+	margin: 0 auto;
+}
+
+.full_description_box.itempage .description_column {
+    display: block;
+    float: left;
+    font-size: 1.5em;
+    font-weight: bold;
+    padding-bottom: 5px;
+    position: relative;
+    width: 100%;
+}
+
+.full_description_box.itempage .price_column {
+    float: left;
+    padding: 10px 0;
+    position: relative;
+    width: 100%;
+}
+
+.full_description_box.itempage .price_column_label, .full_description_box.itempage .price_column_value, .full_description_box.itempage .price_column_label_excl {
+    float: left;
+    position: relative;
+}
+
+.full_description_box.itempage .price_column_value {
+	font-size: 2em;
+	line-height: 1em;
+}
+
+.full_description_box.itempage .price_was_column_value {
+	font-size: 1em;
+	line-height: 1em;
+	color: #FF0040;
+}
+
+.full_description_box.itempage .price_column_label_excl {
+	position: relative;
+	float: left;
+	top: 18px;
+}
+
+.full_description_box.itempage .quantity_ordered_column {
+    float: left;
+    position: relative;
+    width: 75px;
+	margin:0;
+}
+
+.full_description_box.itempage .button_column {
+    float: left;
+    margin: 0 0 0 35px;
+    position: relative;
+    width: 130px;
+}
+
+.full_description_box.itempage .qoh_column, .full_description_box.itempage .code_column {
+	position: relative;
+	float: left;
+}
+
+.full_description_box.itempage .code_column {
+	width: 100%;
+	text-align:center;
+}
+
+.full_description_box.itempage h9 {
+	color: #fff;
+	background: #012f6a;
+	padding: 5px;
+	border-radius: 5px;
+}
+
+.full_description_box.itempage .qoh_column {
+	width: 100%;
+	margin: 0 0 10px;
+	padding: 0 0 5px;
+	border-bottom: 1px solid #000;
+}
+
+.full_description_box.itempage .socialshare_column {
+    float: left;
+    margin: 10px 0;
+    position: relative;
+    width: 100%;
+}
+
+.full_description_box.itempage .qoh_column_label {
+    float: left;
+    position: relative;
+    width: 105px;
+}
+
+.full_description_box.itempage .otherinfo_column {
+	position: relative;
+	float: left;
+	margin: 10px 0;
+	border-top: 1px solid #000;
+	padding: 5px 0 0;
+	width:100%;
+}
+
+.full_description_box.itempage .qoh_column_value {
+    float: left;
+    position: relative;
+    width: 10%;
+	font-weight: bold;
+}
+
+.full_description_box.itempage .qoh_column_uom {
+    float: left;
+    position: relative;
+    width: 20%;
+	margin-left: 15px;
+}
+
