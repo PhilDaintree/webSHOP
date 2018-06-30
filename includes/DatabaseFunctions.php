@@ -137,4 +137,5 @@ function DB_Txn_Begin($db){
 function DB_Txn_Commit($db){
 	$result=mysqli_query($db,"COMMIT");
 }
+
 ?>

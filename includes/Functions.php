@@ -23,7 +23,7 @@ function display_item($StockID, $Description, $LongDescription, $TaxCatID, $Disc
 							<div class="image_column">';
 
 	if( isset($StockID) AND file_exists($PathPrefix . $_SESSION['part_pics_dir'] . '/' .$StockID.'.jpg') ) {
-		$StockImgLink = '<img src="GetStockImage.php?automake=1&amp;textcolor=FFFFFF&amp;bgcolor=CCCCCC&amp;StockID=' .$StockID . '&amp;text=&amp;width=175&amp;height=175" title="' . _('Click for more information') . '" />';
+		$StockImgLink = '<img src="GetStockImage.php?automake=1&amp;textcolor=FFFFFF&amp;bgcolor=CCCCCC&amp;StockID=' . $StockID . '&amp;text=&amp;width=175&amp;height=175" title="' . _('Click for more information') . '" />';
 		$DisplayItemRowHTML .= '<a href="ItemDetails.php?StockID=' . $StockID . '">' . $StockImgLink . '</a>';
  	} else {
 		$DisplayItemRowHTML .= '<a href="ItemDetails.php?StockID=' . $StockID . '"><img src="css/no_image.png" height="175" width="175" title="' . _('Click for more information') . '" /></a>';

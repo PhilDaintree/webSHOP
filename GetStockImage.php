@@ -51,7 +51,7 @@ function DecodeBgColor( $ColourStr ) {
 		return array('red' => $Red, 'green' => $Green, 'blue' => $Blue );
 }
 
-$DefaultImage = 'css/imagecomingsoon.jpg';
+$DefaultImage = 'css/no_image.png';
 
 $FilePath =  $PathPrefix . $_SESSION['part_pics_dir'] . '/';
 
@@ -197,12 +197,12 @@ if( $automake AND !isset($FileName) ) {
 	if(!isset($text))
 		$text = $StockID;
 	if(mb_strlen($text) > 0 ) {
-		$fw = imagefontwidth($fontsize);
-		$fh = imagefontheight($fontsize);
-		$fy = (imagesy($im) - ($fh)) / 2;
-		$fyh = $fy + $fh - 1;
-		$textwidth = $fw * mb_strlen($text);
-		$px = (imagesx($im) - $textwidth) / 2;
+		$FontWidth = imagefontwidth($fontsize);
+		$FontHeight = imagefontheight($fontsize);
+		$fy = (imagesy($im) - ($FontHeight)) / 2;
+		$fyh = $fy + $FontHeight - 1;
+		$TextWidthh = $FontWidth * mb_strlen($text);
+		$px = (imagesx($im) - $TextWidthh) / 2;
 		if (!$notextbg)
 			imagefilledrectangle($im,$px,$fy,imagesx($im)-($px+1),$fyh, $ixtextbgcolor );
 		imagestring($im, $fontsize, $px, $fy, $text, $ixtextcolor);
@@ -210,6 +210,7 @@ if( $automake AND !isset($FileName) ) {
 
 } else {
 	$tmpFileName = $FilePath.$FileName;
+	
 	if( $IsJpeg ) {
 		$im = imagecreatefromjpeg($tmpFileName);
 	} else {
@@ -264,18 +265,14 @@ if( $automake AND !isset($FileName) ) {
 		unset($tmpim);
 
 		if( !isset($BackgroundColour['alpha']) ) {
-			$ixbgcolor = imagecolorallocate($im,
-				$BackgroundColour['red'],$BackgroundColour['green'],$BackgroundColour['blue']);
+			$ixbgcolor = imagecolorallocate($im,$BackgroundColour['red'],$BackgroundColour['green'],$BackgroundColour['blue']);
 		} else {
-			$ixbgcolor = imagecolorallocatealpha($im,
-				$BackgroundColour['red'],$BackgroundColour['green'],$BackgroundColour['blue'],$BackgroundColour['alpha']);
+			$ixbgcolor = imagecolorallocatealpha($im,$BackgroundColour['red'],$BackgroundColour['green'],$BackgroundColour['blue'],$BackgroundColour['alpha']);
 		}
 		if( !isset($TextColour['alpha']) ) {
-			$ixtextcolor = imagecolorallocate($im,
-				$TextColour['red'],$TextColour['green'],$TextColour['blue']);
+			$ixtextcolor = imagecolorallocate($im,$TextColour['red'],$TextColour['green'],$TextColour['blue']);
 		} else {
-			$ixtextcolor = imagecolorallocatealpha($im,
-				$TextColour['red'],$TextColour['green'],$TextColour['blue'],$TextColour['alpha']);
+			$ixtextcolor = imagecolorallocatealpha($im,$TextColour['red'],$TextColour['green'],$TextColour['blue'],$TextColour['alpha']);
 		}
 		//imagealphablending ( $im, false);
 	}
@@ -306,12 +303,12 @@ if( $automake AND !isset($FileName) ) {
 	if(!isset($text))
 		$text = $StockID;
 	if(mb_strlen($text) > 0 ) {
-		$fw = imagefontwidth($fontsize);
-		$fh = imagefontheight($fontsize);
-		$fy = imagesy($im) - ($fh);
+		$FontWidth = imagefontwidth($fontsize);
+		$FontHeight = imagefontheight($fontsize);
+		$fy = imagesy($im) - ($FontHeight);
 		$fyh = imagesy($im) - 1;
-		$textwidth = $fw * mb_strlen($text);
-		$px = (imagesx($im) - $textwidth) / 2;
+		$TextWidthh = $FontWidth * mb_strlen($text);
+		$px = (imagesx($im) - $TextWidthh) / 2;
 		if (!$notextbg)
 			imagefilledrectangle($im,$px,$fy,imagesx($im)-($px+1),$fyh, $ixtextbgcolor );
 		imagestring($im, $fontsize, $px, $fy, $text, $ixtextcolor);
@@ -330,7 +327,7 @@ if( $bevel ) {
 	imageline($im, imagesx($im)-1,0,imagesx($im)-1, imagesy($im)-1, $silver); // right
 }
 // Set up headers
-header('Content-Disposition: filename='.$StockID.'.'.$type);
+header('Content-Disposition: filename='. $StockID.'.'.$type);
 header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
 header('Pragma: public');
 header('Content-type: image/'.$style);
