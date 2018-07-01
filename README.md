@@ -27,7 +27,7 @@ If the customer elects to pay by bank transfer, then this is a low cost alternat
 
 Using paypal requires a paypal account. The credit card processing uses the paypal "payments pro" API and there are fees associated with its use currently USD $30 per month plus 3.9% and $0.30 USD per transaction (not cheap!). A paypal mercant account subscribed to "Payments Pro" is required to use this credit card processing option. This is only available in the US and Canada.
 Also the Payflow Pro credit card processing API is implemented which allows payments over the Payflow pro API - this is a PayPal initiative with partners available at many countries throughout the world - again a Pay Pal merchant account is required subscribed to Pay Flow pro through a PayPal partner gateway.
-SwipeHQ - credit card processing also implemented - available in New Zealand only. Other payment gateways can be accomodated on request for a small development fee.
+SwipeHQ - credit card processing also implemented - available in New Zealand only. 
 
 All the necessary data for the store is entered via webERP - including:
 

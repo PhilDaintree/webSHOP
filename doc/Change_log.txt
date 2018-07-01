@@ -1,5 +1,6 @@
 Change Log
 
+28/4/18 Lisence change to GPL v 2 as per the rest of webERP
 23/4/14 Added new includes/config.php options for ShopName, ShopDebtorNo and ShopBranchCode these settings in config.php over-ride the webERP shop config settings. This allows multiple webSHOP installations on the same webERP installation. However, the About Us, Terms and Conditions, FreightPolicy ContactUs pages are still configured in webERP and will be the same accross all webSHOPs off the same webERP installation 
 23/4/14 ItemDetails.php was not calculating tax correctly - fixed
 19/4/14 Checkout.php now processes SWIPE HQ correctly was resetting for new order before order paid
