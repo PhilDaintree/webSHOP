@@ -38,8 +38,10 @@ if (isset($_SESSION['LoggedIn'])){
 	$_SESSION['TotalDue'] = $CartTotalValue;
 	$_SESSION['TotalVolume'] = $CartTotalVolume;
 	$_SESSION['TotalWeight'] = $CartTotalWeight;
+
 	/*	ReCalculate freight costs by webERP functions */
-	list ($FreightCost, $BestShipper) = CalcFreightCost($_SESSION['TotalDue'],
+	/*
+	 * list ($FreightCost, $BestShipper) = CalcFreightCost($_SESSION['TotalDue'],
 														$_SESSION['CustomerDetails']['braddress2'],
 														$_SESSION['CustomerDetails']['braddress3'],
 														$_SESSION['CustomerDetails']['braddress4'],
@@ -73,6 +75,9 @@ if (isset($_SESSION['LoggedIn'])){
 	} else {
 		$_SESSION['FreightMethodSelected'] = 'NOT AVAILABLE';
 	}
+	*
+	* 
+	*/ 
 }
 if (isset($_SESSION['SelectedPaymentMethod'])){
 	if ($PaymentMethods[$_SESSION['SelectedPaymentMethod']]['Surcharge']!=0 AND $_SESSION['ShopAllowSurcharges']==1){

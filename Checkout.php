@@ -3,7 +3,7 @@ include('includes/DefineCartItemClass.php'); //must be before header.php
 include('includes/config.php');
 include('includes/session.php');
 include($PathPrefix . 'includes/CountriesArray.php');
-include_once ($PathPrefix . 'includes/FreightCalculation.inc');
+//include_once ($PathPrefix . 'includes/FreightCalculation.inc');
 
 $Title = _('Checkout');
 
@@ -186,6 +186,8 @@ if (isset($_POST['ConfirmDeliveryAddress'])){
 		$_SESSION['CustomerDetails']['comments'] = $_POST['Comments'];
 		$_SESSION['CustomerDetails']['email'] = $_POST['Email'];
 		$_SESSION['ConfirmedDeliveryAddress'] = true;
+
+/*
 		if ($_SESSION['ShopFreightMethod']=='webERPCalculation' AND $PhysicalDeliveryRequired==true){
 
 			list ($FreightCost, $BestShipper) = CalcFreightCost($_SESSION['TotalDue'],
@@ -249,7 +251,7 @@ if (isset($_POST['ConfirmDeliveryAddress'])){
 																					'&weight=' . $_SESSION['TotalWeight'] .
 																					'&service_code=AUS_PARCEL_REGULAR';
 			}
-
+	
 			// Set the curl parameters.
 			$ch = curl_init();
 			curl_setopt($ch, CURLOPT_URL, $APIMethod);
@@ -275,8 +277,9 @@ if (isset($_POST['ConfirmDeliveryAddress'])){
 				$_SESSION['FreightMethodSelected'] = 'NOT AVAILABLE';
 			}
 		} else {
-			$_SESSION['FreightCost'] =0;
-		}
+	*/
+		$_SESSION['FreightCost'] =0;
+		//}
 	}
 } //end update delivery address
 

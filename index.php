@@ -148,7 +148,9 @@ if (isset($_GET['Page'])){
 									taxcatid,
 									decimalplaces,
 									mbflag,
-									units";
+									units,
+									salescatid";
+	
 
 	if ($_SESSION['ShopShowOnlyAvailableItems'] != 0){/* We should show only items with QOH > 0 */
 		$SQL .= " HAVING sum(locstock.quantity) > 0";

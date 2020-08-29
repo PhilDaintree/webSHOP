@@ -9,7 +9,7 @@
 <li>1. webERP 4.11 or greater installed on the same web-server</li>
 <li>2. PHP 5.x SSL capable web-server with the following modules: curl, gettext (for multi-language), gd - which are required to run webERP in any event! Note that ssl (secure sockets layer is required to capture credit card details. This requires that the server have a ssl certificate installed - this is only for encryption and there is no requirement to have the certificate registered, but it is advisable to give users confidence in the authenticity of the site.</li>
 </ul>
-<p>Extract the webSHOP.zip archive under your web-root. By default the URL will be http://yourdomain/webSHOP/ You can change the folder name to Store or something you prefer, or have a sub-domain point directly to this folder by configuring you web-hosting arrangements.</p>
+<p>Extract the webSHOP.zip archive under your web-root in a new folder created for the purpose called webSHOP (or other folder name you prefer). By default the URL will be http://yourdomain/webSHOP/</p>
 <p>with a text editor open the file store/includes/config.php - this file contains the following:</p>
 <blockquote><i>
 &lt;?php
@@ -25,7 +25,7 @@
 </blockquote>
 
 <h3>$PathPrefix</h3>
-<p>The $PathPrefix must be set to the relative path from the store directory to the webERP installation directory on the web-server.</p>
+<p>The $PathPrefix must be set to the relative path from the store directory to the webERP installation directory on the web-server. Note that if your webERP folder is called webERP and your webSHOP installation is at the same level as the webERP folder then the default ../webERP should work. Also note that is case sensitive.</p>
 <h3>$DatabaseName</h3>
 <p>The $DatabaseName must be set to the company database that the store should use for all it's data. Note that the mysql user name and password are retrieved from the webERP configuration file and so they are not necessary here. As webERP is a multi-company application it is necessary for webSHOP to identify the company (database) for which the installation should work with.</p>
 <h3>$Theme</h3>
@@ -34,9 +34,9 @@
 <br />
 <hr>
 <p>The store uses the data stored in the webERP config.php to obtain the mysql user and password to use in the connection to mysql.</p>
-<p>Pointing a browser to:</p>
+<p>Assuming the folder you used under the root of your web-server was /webSHOP then pointing a browser to:</p>
 <blockquote><i>
-http://yourdomain/store/
+http://yourdomain/webSHOP/
 </i></blockquote>
 <p>should now show the following</p>
 <img src="images/webSHOP.jpg">
