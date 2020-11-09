@@ -76,15 +76,15 @@ if(!isset($_GET['token']) AND !isset($_GET['PayerID'])) { //then we must first m
 }
 
 function PaypalTransactionCommision ($BankAccount, $CommissionAccount, $Commission, $Currency, $TransactionID) {
-	global $db;
-	DB_Txn_Begin($db);
+
+	DB_Txn_Begin();
 
 	$PaymentNo = GetNextSequenceNo(1);
-	$PeriodNo = GetPeriod(Date($_SESSION['DefaultDateFormat']),$db);
+	$PeriodNo = GetPeriod(Date($_SESSION['DefaultDateFormat']));
 
 	/*now enter the BankTrans entry */
 	//First get the currency and rate for the bank account
-	$BankResult = DB_query("SELECT rate FROM bankaccounts INNER JOIN currencies ON bankaccounts.currcode=currencies.currabrev WHERE accountcode='" . $BankAccount . "'",$db);
+	$BankResult = DB_query("SELECT rate FROM bankaccounts INNER JOIN currencies ON bankaccounts.currcode=currencies.currabrev WHERE accountcode='" . $BankAccount . "'");
 	$BankRow = DB_fetch_array($BankResult);
 	$FunctionalRate = $BankRow['rate'];
 
@@ -111,7 +111,7 @@ function PaypalTransactionCommision ($BankAccount, $CommissionAccount, $Commissi
 		)";
 	$DbgMsg = _('The SQL that failed to insert the bank account transaction was');
 	$ErrMsg = _('Cannot insert a bank transaction');
-	$result = DB_query($SQL,$db,$ErrMsg,$DbgMsg,true);
+	$result = DB_query($SQL,$ErrMsg,$DbgMsg,true);
 
 
 	// Insert GL entries too if integration enabled
@@ -136,7 +136,7 @@ function PaypalTransactionCommision ($BankAccount, $CommissionAccount, $Commissi
 					)";
 		$DbgMsg = _('The SQL that failed to insert the Paypal transaction fee from the bank account debit was');
 		$ErrMsg = _('Cannot insert a GL transaction for the bank account debit');
-		$result = DB_query($SQL,$db,$ErrMsg,$DbgMsg,true);
+		$result = DB_query($SQL,$ErrMsg,$DbgMsg,true);
 
 	/* Now Credit Debtors account with receipts + discounts */
 		$SQL="INSERT INTO gltrans ( type,
@@ -155,10 +155,10 @@ function PaypalTransactionCommision ($BankAccount, $CommissionAccount, $Commissi
 							'" . ($Commission /$_SESSION['CustomerDetails']['rate']). "' )";
 		$DbgMsg = _('The SQL that failed to insert the Paypal transaction fee for the commission account credit was');
 		$ErrMsg = _('Cannot insert a GL transaction for the debtors account credit');
-		$result = DB_query($SQL,$db,$ErrMsg,$DbgMsg,true);
+		$result = DB_query($SQL,$ErrMsg,$DbgMsg,true);
 		EnsureGLEntriesBalance(1,$PaymentNo);
 	} //end if there is GL work to be done - ie config is to link to GL
 
-	DB_Txn_Commit($db);
+	DB_Txn_Commit();
 }
 ?>

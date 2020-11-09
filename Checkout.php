@@ -199,15 +199,14 @@ if (isset($_POST['ConfirmDeliveryAddress'])){
 																$_SESSION['TotalVolume'],
 																$_SESSION['TotalWeight'],
 																$_SESSION['CustomerDetails']['defaultlocation'],
-																$_SESSION['CustomerDetails']['currcode'],
-																$db);
+																$_SESSION['CustomerDetails']['currcode']);
 
 			//echo '<br />Freight Cost = ' . $FreightCost;
 
 			if ($FreightCost != 'NOT AVAILABLE'){
 				$_SESSION['FreightCost'] = $FreightCost;
 				$sqlShipper = "SELECT shippername FROM shippers WHERE shipper_id= '" . $BestShipper . "'";
-				$resultShipper = DB_query($sqlShipper,$db);
+				$resultShipper = DB_query($sqlShipper);
 				while ($myrowShipper = DB_fetch_array($resultShipper)) {
 					$_SESSION['FreightMethodSelected'] = $myrowShipper['shippername'];
 				}
@@ -251,7 +250,7 @@ if (isset($_POST['ConfirmDeliveryAddress'])){
 																					'&weight=' . $_SESSION['TotalWeight'] .
 																					'&service_code=AUS_PARCEL_REGULAR';
 			}
-	
+
 			// Set the curl parameters.
 			$ch = curl_init();
 			curl_setopt($ch, CURLOPT_URL, $APIMethod);

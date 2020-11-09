@@ -31,7 +31,7 @@ if (isset($_POST['Register'])){
 	//Validation
 	$InputError=0; // always hope/assume the best
 	$i=0; //error counter
-	$CheckEmailResult = DB_query("SELECT email FROM www_users WHERE email='" . $_POST['UserEmail'] ."' AND customerid<>''",$db);
+	$CheckEmailResult = DB_query("SELECT email FROM www_users WHERE email='" . $_POST['UserEmail'] ."' AND customerid<>''");
 	if (DB_num_rows($CheckEmailResult)>0 AND (!isset($_SESSION['LoggedIn']) OR $_SESSION['LoggedIn']==false)){
 		$InputError = 1;
 		message_log( _('You have already registered this email address on the system please login to use your existing account'),'error');
@@ -102,7 +102,7 @@ if (isset($_POST['Register'])){
 		if (!isset($_SESSION['LoggedIn']) OR $_SESSION['LoggedIn']==false){ //customer is not logged in so setting up a new customer
 			do {
 				$CustomerCode = CreateWebCustomerCode(GetNextSequenceNo(500));
-				$CheckDoesntExistResult = DB_query("SELECT count(*) FROM debtorsmaster WHERE debtorno='" . $CustomerCode . "'",$db);
+				$CheckDoesntExistResult = DB_query("SELECT count(*) FROM debtorsmaster WHERE debtorno='" . $CustomerCode . "'");
 				$CheckDoesntExistRow = DB_fetch_row($CheckDoesntExistResult);
 			} while ($CheckDoesntExistRow[0]==1);
 
@@ -142,7 +142,7 @@ if (isset($_POST['Register'])){
 										'" . $_POST['TaxRef'] . "')";
 
 			$ErrMsg = _('This customer could not be added because');
-			$result = DB_query($SQL,$db,$ErrMsg);
+			$result = DB_query($SQL,$ErrMsg);
 			//Now add the customer branch record
 			$SQL = "INSERT INTO custbranch (branchcode,
 											debtorno,
@@ -191,7 +191,7 @@ if (isset($_POST['Register'])){
 										'" . $_SESSION['CustomerDetails']['defaultlocation'] . "',
 										'" . $_SESSION['CustomerDetails']['defaultshipvia'] . "' )";
 			$ErrMsg = _('This customer branch could not be added because');
-			$result = DB_query($SQL,$db,$ErrMsg);
+			$result = DB_query($SQL,$ErrMsg);
 
 			$SQL = "INSERT INTO www_users (userid,
 											realname,
@@ -224,7 +224,7 @@ if (isset($_POST['Register'])){
 
 			$ErrMsg = _('The user could not be added because');
 			$DbgMsg = _('The SQL that was used to insert the new user and failed was');
-			$result = DB_query($SQL,$db,$ErrMsg,$DbgMsg);
+			$result = DB_query($SQL,$ErrMsg,$DbgMsg);
 			message_log( _('Successfully registered'),'success');
 
 			$MailTo = $_POST['UserEmail'] . ', ' . $_SESSION['ShopManagerEmail'];
@@ -338,7 +338,7 @@ if (isset($_POST['Register'])){
 
 
 			$ErrMsg = _('This customer could not be updated because');
-			$result = DB_query($SQL,$db,$ErrMsg);
+			$result = DB_query($SQL,$ErrMsg);
 			//Now add the customer branch record
 			$SQL = "UPDATE custbranch SET	brname   = '" . $CustomerName ."',
 											braddress1='" . $_POST['DeliveryAddress1'] . "',
@@ -360,7 +360,7 @@ if (isset($_POST['Register'])){
 					AND branchcode='" . $_SESSION['ShopBranchCode']  . "'";
 
 			$ErrMsg = _('This customer branch could not be updated because');
-			$result = DB_query($SQL,$db,$ErrMsg);
+			$result = DB_query($SQL,$ErrMsg);
 
 			$SQL = "UPDATE www_users SET realname = '" . $_POST['ContactName'] . "',
 										password = '" . password_hash($_POST['Password'],PASSWORD_DEFAULT) . "',
@@ -373,7 +373,7 @@ if (isset($_POST['Register'])){
 
 			$ErrMsg = _('The user could not be updated because');
 			$DbgMsg = _('The SQL that was used to update the user and failed was');
-			$result = DB_query($SQL,$db,$ErrMsg,$DbgMsg);
+			$result = DB_query($SQL,$ErrMsg,$DbgMsg);
 			message_log( _('Successfully updated your details'),'success');
 		}
 
@@ -717,7 +717,7 @@ echo '</select></div>
 <div class="row">
 	<div class="row-left">' . _('Billing Currency') . ':</div>
 	<div class="row-right"><select tabindex="20" ' . (in_array('CurrCode',$Errors) ?  'class="error"' : '' ) . ' name="CurrCode">';
-	$CurrenciesResult = DB_query("SELECT currabrev FROM currencies WHERE webcart=1",$db);
+	$CurrenciesResult = DB_query("SELECT currabrev FROM currencies WHERE webcart=1");
 	while ($CurrRow = DB_fetch_array($CurrenciesResult)){
 		echo '<option ';
 		if ($_SESSION['CustomerDetails']['currcode']==$CurrRow['currabrev']){

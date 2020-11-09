@@ -3,7 +3,7 @@ include('includes/DefineCartItemClass.php'); //must be before header.php
 include('includes/config.php');
 include('includes/session.php');
 
-$ItemResult = DB_query("SELECT description, longdescription, taxcatid, units FROM stockmaster WHERE stockid='" . $_GET['StockID'] . "'", $db);
+$ItemResult = DB_query("SELECT description, longdescription, taxcatid, units FROM stockmaster WHERE stockid='" . $_GET['StockID'] . "'");
 $ItemRow = DB_fetch_array($ItemResult);
 $Title = _($ItemRow['description']) . ' - ' . $_SESSION['ShopTitle'];
 
@@ -86,11 +86,11 @@ $ItemResult = DB_query("SELECT stockmaster.stockid,
 								decimalplaces,
 								units,
 								longdescription,
-								taxcatid", $db);
+								taxcatid");
 $ItemRow = DB_fetch_array($ItemResult);
 
 $Price = GetPrice(($StockID), $_SESSION['ShopDebtorNo'], $_SESSION['ShopBranchCode'], $_SESSION['CustomerDetails']['currcode']);
-$Discount = GetDiscount($ItemRow['discountcategory'], 1, $db);
+$Discount = GetDiscount($ItemRow['discountcategory'], 1);
 $GrossPrice = $Price * (1 - $Discount) * (1 + $_SESSION['TaxRates'][$ItemRow['taxcatid']]);
 
 echo '<div class="price_column_value">'. $_SESSION['CustomerDetails']['currcode'] . ' ' . locale_number_format($GrossPrice, $_SESSION['CustomerDetails']['currdecimalplaces']) . '&nbsp;</div>';
@@ -103,7 +103,7 @@ if($Discount != 0){
 
 echo '	<div class="price_column_label_excl">&nbsp;' . _('incl GST') . '</div>
 	</div>';
-	
+
 if ($_SESSION['ShopShowQOHColumn'] == 1){
 	if ($ItemRow['quantityonhand'] <= 0) {
 		$DisplayOnHand = _('Arriving Soon');
@@ -127,14 +127,14 @@ echo '<div class="quantity_ordered_column">
 	<div class="otherinfo_column">
 		<div class="back_column"><a href="javascript:history.go(-1)">' . _('Back to Category') . '</a></div>
 	</div>
-	
+
 	<div class="socialshare_column">
 		<span class="st_facebook_large" displayText="Facebook"></span>
 		<span class="st_twitter_large" displayText="Tweet"></span>
 		<span class="st_googleplus_large" displayText="Google +"></span>
 		<span class="st_email_large" displayText="Email"></span>
 	</div>
-	
+
 	</div>
 	</div>
 	<div class="bordersep"></div>
@@ -142,7 +142,7 @@ echo '<div class="quantity_ordered_column">
 	<div class="long_description">'. str_replace($CarriageReturnOrLineFeed,'',html_entity_decode($ItemRow['longdescription'])) . '</div>
 	</div>';
 
-echo '</div>'; // end prodbox 
+echo '</div>'; // end prodbox
 echo '</div>'; //end content_main
 echo '</div>'; //end content_inner
 echo '</div>'; //end content_block

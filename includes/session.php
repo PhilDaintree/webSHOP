@@ -1,7 +1,7 @@
 <?php
 require($PathPrefix . 'config.php');
 require_once('includes/DefineCartItemClass.php');
-include('includes/Functions.php'); 
+include('includes/Functions.php');
 if (!isset($RootPath)){
 	$RootPath = dirname(htmlspecialchars($_SERVER['PHP_SELF']));
 	if ($RootPath == '/' OR $RootPath == "\\") {
@@ -39,9 +39,6 @@ include($PathPrefix . 'includes/LanguageSetup.php');
 /*Sanitise $_POST and $_GET data */
 foreach ($_POST as $PostVariableName => $PostVariableValue) {
 	if (gettype($PostVariableValue) != 'array') {
-		if(get_magic_quotes_gpc()) {
-			$_POST['name'] = stripslashes($_POST['name']);
-		}
 		$_POST[$PostVariableName] = DB_escape_string($PostVariableValue);
 	} else {
 		foreach ($PostVariableValue as $PostArrayKey => $PostArrayValue) {
@@ -65,10 +62,10 @@ foreach ($_GET as $GetKey => $GetValue) {
 if (!isset($_SESSION['CompanyDefaultsLoaded'])) {
 
 	//echo '<Br />LOADED NEW DEFAULTS';
-	
+
 	$sql = "SELECT confname, confvalue FROM config";
 	$ErrMsg = _('Could not get the configuration parameters from the database because');
-	$ConfigResult = DB_query($sql,$db,$ErrMsg);
+	$ConfigResult = DB_query($sql,$ErrMsg);
 	while( $myrow = DB_fetch_array($ConfigResult) ) {
 		if (is_numeric($myrow['confvalue']) AND $myrow['confname']!='DefaultPriceList' AND $myrow['confname']!='VersionNumber'){
 			//the variable name is given by $myrow[0]
@@ -77,7 +74,7 @@ if (!isset($_SESSION['CompanyDefaultsLoaded'])) {
 			$_SESSION[$myrow['confname']] =  $myrow['confvalue'];
 		}
 	} //end loop through all config variables
-	
+
 	DB_free_result($ConfigResult); // no longer needed
 
 	$sql=	"SELECT	coyname,
@@ -110,7 +107,7 @@ if (!isset($_SESSION['CompanyDefaultsLoaded'])) {
 				WHERE coycode=1";
 
 	$ErrMsg = _('An error occurred accessing the database to retrieve the company information');
-	$ReadCoyResult = DB_query($sql,$db,$ErrMsg);
+	$ReadCoyResult = DB_query($sql,$ErrMsg);
 
 	if (DB_num_rows($ReadCoyResult)==0) {
 		echo '<br /><b>';
@@ -142,8 +139,7 @@ if (!isset($_SESSION['CompanyDefaultsLoaded'])) {
 		//then use $ShopContactUs for this shop - this allows multiple webSHOPs for a single webERP installation
 		$_SESSION['ShopContactUs'] = $ShopContactUs;
 	}
-	
-	
+
 	$_SESSION['CompanyDefaultsLoaded'] = true; //so we don't do this with every page
 }
 
@@ -184,13 +180,13 @@ function CreateRandomHash($Length){
 	$Characters = 'ABCDEFGHIJKLMOPQRSTUVXWYZ0123456789';
 	$SizeofCharArray = strlen($Characters);
 	$SizeofCharArray--;
-	
+
 	$Hash='';
 	for($i=1;$i<=$Length;$i++){
 		$Position = rand(0,$SizeofCharArray);
 		$Hash .= substr($Characters,$Position,1);
 	}
-	
+
 	return $Hash;
 }
 ?>

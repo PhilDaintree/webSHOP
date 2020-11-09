@@ -1,6 +1,6 @@
 <?php
 function display_item($StockID, $Description, $LongDescription, $TaxCatID, $DiscountCategory, $Quantity, $DecimalPlaces, $MBFlag, $UOM) {
-	global $db;
+
 	global $PathPrefix;
 	global $RoothPath;
 
@@ -14,7 +14,7 @@ function display_item($StockID, $Description, $LongDescription, $TaxCatID, $Disc
 		return '0';
 	}
 
-	$Discount = GetDiscount($DiscountCategory, $Quantity, $db);
+	$Discount = GetDiscount($DiscountCategory, $Quantity);
 
 	$GrossPrice = $Price * (1 - $Discount) * (1 + $_SESSION['TaxRates'][$TaxCatID]);
 
@@ -67,12 +67,12 @@ function display_item($StockID, $Description, $LongDescription, $TaxCatID, $Disc
 } //end display_item function
 
 function list_sales_categories($ParentCatID) {
-	global $db;
+
 	$SalesCatList ='';
 	$SalesCategoriesResult = DB_query("SELECT salescatid
 										FROM salescat
 										WHERE parentcatid='" . $ParentCatID . "'
-										AND active=1 ", $db);
+										AND active=1 ");
 	if (DB_num_rows($SalesCategoriesResult)>0){
 		while ($SalesCatRow = DB_fetch_array($SalesCategoriesResult)){
 			if ($ParentCatID =='' AND $SalesCatList=='') {
@@ -87,13 +87,13 @@ function list_sales_categories($ParentCatID) {
 }
 
 function display_sub_categories ($ParentCatID, $HtmlString) {
-	global $db;
+
 	global $RootSalesCategory;
 
 	$SalesCategoriesResult = DB_query("SELECT salescatid, salescatname
 										FROM salescat
 										WHERE parentcatid='" . $ParentCatID . "'
-											AND active = 1 ", $db);
+											AND active = 1 ");
 	if (DB_num_rows($SalesCategoriesResult)>0){
 		if ($ParentCatID==$RootSalesCategory){
 			$HtmlString .= '<ul class="dropdown dropdown-vertical">';
@@ -105,7 +105,7 @@ function display_sub_categories ($ParentCatID, $HtmlString) {
 					FROM salescattranslations
 					WHERE salescatid='" .$SaleCatRow['salescatid'] . "'
 					AND language_id='" . $_SESSION['Language'] . "'";
-			$SaleCatTranslationResult = DB_query($SQL,$db);
+			$SaleCatTranslationResult = DB_query($SQL);
 			if (DB_num_rows($SaleCatTranslationResult)>0){
 				$SaleCatTranslationRow = DB_fetch_array($SaleCatTranslationResult);
 				$HtmlString .= '<li><a class="sales_category" href="index.php?SalesCategory=' . urlencode($SaleCatRow['salescatid']) . '">' . $SaleCatTranslationRow['salescattranslation'] . '</a>';
@@ -138,17 +138,15 @@ function ShowSalesCategoriesMenu() {
 
 function get_sales_category_name ($SalesCategoryID) {
 
-	global $db;
-
 	$SaleCatTranslationResult = DB_query("SELECT salescattranslation
 											FROM salescattranslations
 											WHERE salescatid='" . $SalesCategoryID . "'
-											AND language_id='" . $_SESSION['Language'] . "'",$db);
+											AND language_id='" . $_SESSION['Language'] . "'");
 	if (DB_num_rows($SaleCatTranslationResult)>0){
 		$SaleCatTranslationRow = DB_fetch_row($SaleCatTranslationResult);
 		$SalesCategoryDescription =  $SaleCatTranslationRow[0];
 	} else {
-		$SaleCatResult = DB_query("SELECT salescatname FROM salescat WHERE salescatid='" . $SalesCategoryID . "' AND active = 1",$db);
+		$SaleCatResult = DB_query("SELECT salescatname FROM salescat WHERE salescatid='" . $SalesCategoryID . "' AND active = 1");
 		$SaleCatRow = DB_fetch_row($SaleCatResult);
 		$SalesCategoryDescription =  $SaleCatRow[0];
 	}
@@ -156,8 +154,7 @@ function get_sales_category_name ($SalesCategoryID) {
 }
 
 function get_item_description_translation($StockID) {
-	global $db;
-	$TranslationResult = DB_query("SELECT descriptiontranslation FROM stockdescriptiontranslations WHERE stockid='" . $StockID . "' AND language_id='" . $_SESSION['Language'] ."'",$db);
+	$TranslationResult = DB_query("SELECT descriptiontranslation FROM stockdescriptiontranslations WHERE stockid='" . $StockID . "' AND language_id='" . $_SESSION['Language'] ."'");
 	if (DB_num_rows($TranslationResult)>0){
 		$TranslationRow = DB_fetch_row($TranslationResult);
 		if ($TranslationROw[0]!='') {
@@ -172,7 +169,6 @@ function get_item_description_translation($StockID) {
 
 Function GetNextSequenceNo ($SequenceType){
 
-	global $db;
 /* SQL to get the next transaction number these are maintained in the table SysTypes - Transaction Types
 Also updates the transaction number
 
@@ -183,35 +179,33 @@ etc
 *
 */
 
-	DB_query("LOCK TABLES systypes WRITE",$db);
+	DB_query("LOCK TABLES systypes WRITE");
 
 	$SQL = "SELECT typeno FROM systypes WHERE typeid = '" . $SequenceType . "'";
 
 	$ErrMsg = _('CRITICAL ERROR') . '! ' . _('NOTE DOWN THIS ERROR AND SEEK ASSISTANCE') . ': <BR>' . _('The next transaction number could not be retrieved from the database because');
 	$DbgMsg =  _('The following SQL to retrieve the transaction number was used');
-	$GetTransNoResult = DB_query($SQL,$db,$ErrMsg,$DbgMsg);
+	$GetTransNoResult = DB_query($SQL,$ErrMsg,$DbgMsg);
 
 	$myrow = DB_fetch_row($GetTransNoResult);
 
 	$SQL = "UPDATE systypes SET typeno = '" . ($myrow[0] + 1) . "' WHERE typeid = '" . $SequenceType . "'";
 	$ErrMsg = _('CRITICAL ERROR') . '! ' . _('NOTE DOWN THIS ERROR AND SEEK ASSISTANCE') . ': ' . _('The transaction number could not be incremented');
 	$DbgMsg =  _('The following SQL to increment the transaction number was used');
-	$UpdTransNoResult = DB_query($SQL,$db,$ErrMsg,$DbgMsg);
+	$UpdTransNoResult = DB_query($SQL,$ErrMsg,$DbgMsg);
 
-	DB_query("UNLOCK TABLES",$db);
+	DB_query("UNLOCK TABLES");
 
 	return $myrow[0] + 1;
 }
 
 function EnsureGLEntriesBalance ($TransType, $TransTypeNo) {
 	/*Ensures general ledger entries balance for a given transaction */
-	global $db;
 
 	$result = DB_query("SELECT SUM(amount)
 						FROM gltrans
 						WHERE type = '" . $TransType . "'
-						AND typeno = '" . $TransTypeNo . "'",
-						$db);
+						AND typeno = '" . $TransTypeNo . "'");
 	$myrow = DB_fetch_row($result);
 	$Difference = $myrow[0];
 	if (abs($Difference)!=0){
@@ -223,13 +217,11 @@ function EnsureGLEntriesBalance ($TransType, $TransTypeNo) {
 								FROM gltrans
 								WHERE type = '" . $TransType . "'
 								AND typeno = '" . $TransTypeNo . "'
-								GROUP BY counterindex",
-								$db);
+								GROUP BY counterindex");
 			$myrow = DB_fetch_array($result);
 			$TransToAmend = $myrow['counterindex'];
 			$result = DB_query("UPDATE gltrans SET amount = amount - " . $Difference . "
-								WHERE counterindex = '" . $TransToAmend . "'",
-								$db);
+								WHERE counterindex = '" . $TransToAmend . "'");
 
 		}
 	}
@@ -415,11 +407,10 @@ function ResetForNewOrder ($LogOff=false) {
 }
 
 function InsertCustomerReceipt ($BankAccount,$TransactionID, $OrderNo) {
-	global $db;
-	DB_Txn_Begin($db);
+	DB_Txn_Begin();
 
 	$CustomerReceiptNo = GetNextSequenceNo(12);
-	$PeriodNo = GetPeriod(Date($_SESSION['DefaultDateFormat']),$db);
+	$PeriodNo = GetPeriod(Date($_SESSION['DefaultDateFormat']));
 
 	$HeaderSQL = "INSERT INTO debtortrans (transno,
 											type,
@@ -444,10 +435,10 @@ function InsertCustomerReceipt ($BankAccount,$TransactionID, $OrderNo) {
 									'". $OrderNo . "',
 									'" . $_SESSION['CustomerDetails']['rate'] . "',
 									'" . round(-$_SESSION['TotalDue'],2) . "',
-									'" . _('web payment') . "')";
+									'" . __('web payment') . "')";
 	$DbgMsg = _('The SQL that failed was');
 	$ErrMsg = _('The customer receipt cannot be added because');
-	$InsertQryResult = DB_query($HeaderSQL,$db,$ErrMsg,$DbgMsg);
+	$InsertQryResult = DB_query($HeaderSQL,$ErrMsg,$DbgMsg);
 
 	$SQL = "UPDATE debtorsmaster
 				SET lastpaiddate = '" . Date('Y-m-d') . "',
@@ -456,11 +447,11 @@ function InsertCustomerReceipt ($BankAccount,$TransactionID, $OrderNo) {
 
 	$DbgMsg = _('The SQL that failed to update the date of the last payment received was');
 	$ErrMsg = _('Cannot update the customer record for the date of the last payment received because');
-	$result = DB_query($SQL,$db,$ErrMsg,$DbgMsg,true);
+	$result = DB_query($SQL,$ErrMsg,$DbgMsg,true);
 
 	/*now enter the BankTrans entry */
 	//First get the currency and rate for the bank account
-	$BankResult = DB_query("SELECT rate FROM bankaccounts INNER JOIN currencies ON bankaccounts.currcode=currencies.currabrev WHERE accountcode='" . $BankAccount . "'",$db);
+	$BankResult = DB_query("SELECT rate FROM bankaccounts INNER JOIN currencies ON bankaccounts.currcode=currencies.currabrev WHERE accountcode='" . $BankAccount . "'");
 	$BankRow = DB_fetch_array($BankResult);
 	$FunctionalRate = $BankRow['rate'];
 
@@ -487,7 +478,7 @@ function InsertCustomerReceipt ($BankAccount,$TransactionID, $OrderNo) {
 		)";
 	$DbgMsg = _('The SQL that failed to insert the bank account transaction was');
 	$ErrMsg = _('Cannot insert a bank transaction');
-	$result = DB_query($SQL,$db,$ErrMsg,$DbgMsg,true);
+	$result = DB_query($SQL,$ErrMsg,$DbgMsg,true);
 
 
 	// Insert GL entries too if integration enabled
@@ -512,7 +503,7 @@ function InsertCustomerReceipt ($BankAccount,$TransactionID, $OrderNo) {
 					)";
 		$DbgMsg = _('The SQL that failed to insert the GL transaction fro the bank account debit was');
 		$ErrMsg = _('Cannot insert a GL transaction for the bank account debit');
-		$result = DB_query($SQL,$db,$ErrMsg,$DbgMsg,true);
+		$result = DB_query($SQL,$ErrMsg,$DbgMsg,true);
 
 	/* Now Credit Debtors account with receipts + discounts */
 		$SQL="INSERT INTO gltrans ( type,
@@ -531,15 +522,14 @@ function InsertCustomerReceipt ($BankAccount,$TransactionID, $OrderNo) {
 							'" . -($_SESSION['TotalDue'] /$_SESSION['CustomerDetails']['rate']). "' )";
 		$DbgMsg = _('The SQL that failed to insert the GL transaction for the debtors account credit was');
 		$ErrMsg = _('Cannot insert a GL transaction for the debtors account credit');
-		$result = DB_query($SQL,$db,$ErrMsg,$DbgMsg,true);
+		$result = DB_query($SQL,$ErrMsg,$DbgMsg,true);
 		EnsureGLEntriesBalance(12,$CustomerReceiptNo);
 	} //end if there is GL work to be done - ie config is to link to GL
 
-	DB_Txn_Commit($db);
+	DB_Txn_Commit();
 }
 
 function GetPrice ($StockID, $DebtorNo, $BranchCode, $CurrCode){
-	global $db;
 	$Price = 0;
 	/*Search by branch and customer for a date specified price */
 	$sql="SELECT prices.price
@@ -554,7 +544,7 @@ function GetPrice ($StockID, $DebtorNo, $BranchCode, $CurrCode){
 			AND prices.enddate >='" . Date('Y-m-d') . "'";
 
 	$ErrMsg =  _('There is a problem in retrieving the pricing information for part') . ' ' . $StockID  . ' ' . _('and for Customer') . ' ' . $DebtorNo .  ' ' . _('the error message returned by the SQL server was');
-	$result = DB_query($sql, $db,$ErrMsg);
+	$result = DB_query($sql,$ErrMsg);
 	if (DB_num_rows($result)==0){
 		/*Need to try same specific search but for a default price with a zero end date */
 		$sql="SELECT prices.price,
@@ -571,7 +561,7 @@ function GetPrice ($StockID, $DebtorNo, $BranchCode, $CurrCode){
 				AND prices.enddate ='0000-00-00'
 				ORDER BY prices.startdate DESC";
 
-		$result = DB_query($sql, $db,$ErrMsg);
+		$result = DB_query($sql,$ErrMsg);
 
 		if (DB_num_rows($result)==0){
 
@@ -589,7 +579,7 @@ function GetPrice ($StockID, $DebtorNo, $BranchCode, $CurrCode){
 					AND prices.enddate >='" . Date('Y-m-d') . "'";
 
 
-			$result = DB_query($sql,$db,$ErrMsg);
+			$result = DB_query($sql,$ErrMsg);
 			if (DB_num_rows($result)==0){
 				//if no specific price between the dates maybe there is a default price with no end date specified
 				$sql = "SELECT prices.price,
@@ -606,7 +596,7 @@ function GetPrice ($StockID, $DebtorNo, $BranchCode, $CurrCode){
 						AND prices.enddate >='0000-00-00'
 						ORDER BY prices.startdate DESC";
 
-				$result = DB_query($sql,$db,$ErrMsg);
+				$result = DB_query($sql,$ErrMsg);
 
 				if (DB_num_rows($result)==0){
 
@@ -622,7 +612,7 @@ function GetPrice ($StockID, $DebtorNo, $BranchCode, $CurrCode){
 							AND prices.startdate <='" . Date('Y-m-d') . "'
 							AND prices.enddate >='" . Date('Y-m-d') . "'";
 
-					$result = DB_query($sql,$db,$ErrMsg);
+					$result = DB_query($sql,$ErrMsg);
 
 					if (DB_num_rows($result)==0){
 						/*No special customer specific pricing use the customers normal price list but look for default price with 0000-00-00 end date*/
@@ -639,7 +629,7 @@ function GetPrice ($StockID, $DebtorNo, $BranchCode, $CurrCode){
 								AND prices.enddate ='0000-00-00'
 								ORDER BY prices.startdate DESC";
 
-						$result = DB_query($sql,$db,$ErrMsg);
+						$result = DB_query($sql,$ErrMsg);
 
 						if (DB_num_rows($result)==0){
 
@@ -653,7 +643,7 @@ function GetPrice ($StockID, $DebtorNo, $BranchCode, $CurrCode){
 									AND prices.startdate <='" . Date('Y-m-d') . "'
 									AND prices.enddate >='" . Date('Y-m-d') . "'";;
 
-							$result = DB_query($sql, $db,$ErrMsg);
+							$result = DB_query($sql,$ErrMsg);
 
 							if (DB_num_rows($result)==0){
 
@@ -671,7 +661,7 @@ function GetPrice ($StockID, $DebtorNo, $BranchCode, $CurrCode){
 										AND prices.enddate ='0000-00-00'
 										ORDER BY prices.startdate DESC";
 
-								$result = DB_query($sql, $db,$ErrMsg);
+								$result = DB_query($sql,$ErrMsg);
 
 								if (DB_num_rows($result)==0){
 									/*Not even a price set up in the default price list so return 0 */
@@ -696,7 +686,7 @@ function GetPrice ($StockID, $DebtorNo, $BranchCode, $CurrCode){
 }
 
 function update_currency_prices ($CurrCode) {
-	global $db;
+
 	//gets the appropriate price for the customer/currency now it could have been changed
 	foreach ($_SESSION['ShoppingCart'] as $CartKey=>$CartItem){
 		$Price = GetPrice($CartItem->StockID,
@@ -714,13 +704,13 @@ function update_currency_prices ($CurrCode) {
 }
 
 function GetDiscount($DiscountCategory, $Quantity){
-	global $db;
+
 	/* Select the disount rate from the discount Matrix */
 	$result = DB_query("SELECT MAX(discountrate) AS discount
 						FROM discountmatrix
 						WHERE salestype='" .  $_SESSION['CustomerDetails']['salestype'] . "'
 						AND discountcategory ='" . $DiscountCategory . "'
-						AND quantitybreak <= '" .$Quantity ."'",$db);
+						AND quantitybreak <= '" .$Quantity ."'");
 	$myrow = DB_fetch_row($result);
 	if ($myrow[0]==NULL){
 		$DiscountMatrixRate = 0;
@@ -731,7 +721,6 @@ function GetDiscount($DiscountCategory, $Quantity){
 }
 
 function ShowBankDetails ($OrderNo) {
-	global $db;
 
 	/*Used on check out and in the confirmation email */
 	$ShowBankDetails = true;
@@ -740,16 +729,14 @@ function ShowBankDetails ($OrderNo) {
 									bankaccountnumber
 							FROM bankaccounts
 							WHERE invoice=2
-							AND currcode='" . $_SESSION['CustomerDetails']['currcode'] . "'",
-							$db);
+							AND currcode='" . $_SESSION['CustomerDetails']['currcode'] . "'");
 	if (DB_num_rows($BankResult)==0){
 		/* If no currency default check the fall back default */
 		$BankResult = DB_query("SELECT bankaccountname,
 									bankaddress,
 									bankaccountnumber
 								FROM bankaccounts
-								WHERE invoice=1",
-								$db);
+								WHERE invoice=1");
 		if (DB_num_rows($BankResult)==0){
 			$ShowBankDetails = false;
 		}

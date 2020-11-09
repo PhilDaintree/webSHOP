@@ -11,7 +11,7 @@ if (!mb_strpos($_SERVER['PHP_SELF'],'PlaceOrder.php')) { //to ensure the script 
 		$Quotation = 0;
 	}
 
-	$Result = DB_Txn_Begin($db);
+	$Result = DB_Txn_Begin();
 
 	$OrderNo = GetNextSequenceNo(30);
 
@@ -67,7 +67,7 @@ if (!mb_strpos($_SERVER['PHP_SELF'],'PlaceOrder.php')) { //to ensure the script 
 								'" . Date('Y-m-d') . "')";
 	$DbgMsg = _('The SQL that failed was');
 	$ErrMsg = _('The order cannot be added because');
-	$InsertQryResult = DB_query($HeaderSQL,$db,$ErrMsg,$DbgMsg,true);
+	$InsertQryResult = DB_query($HeaderSQL,$ErrMsg,$DbgMsg,true);
 
 	$StartOf_LineItemsSQL = "INSERT INTO salesorderdetails (orderlineno,
 															orderno,
@@ -91,13 +91,13 @@ if (!mb_strpos($_SERVER['PHP_SELF'],'PlaceOrder.php')) { //to ensure the script 
 					'" . Date('Y-m-d') . "',
 					'" . $CartItem->Discount . "')";
 		$ErrMsg = _('Unable to add the sales order line');
-		$Ins_LineItemResult = DB_query($LineItemsSQL,$db,$ErrMsg,$DbgMsg,true);
+		$Ins_LineItemResult = DB_query($LineItemsSQL,$ErrMsg,$DbgMsg,true);
 		$i++;
 	} /* end inserted line items into sales order details */
 
 	if($_SESSION['SurchargeAmount']>0.01){
 		//Need to get the tax category of the SurchargeItem
-		//$SurchargeTaxCatResult = DB_query("SELECT taxcatid FROM stockmaster WHERE stockid='" . $_SESSION['ShopSurchargeStockID'] ."'",$db);
+		//$SurchargeTaxCatResult = DB_query("SELECT taxcatid FROM stockmaster WHERE stockid='" . $_SESSION['ShopSurchargeStockID'] ."'");
 		//$TaxCatRow = DB_fetch_row($SurchargeTaxCatResult);
 
 		//$NetSurcharge = $_SESSION['SurchargeAmount']/(1+$_SESSION['TaxRates'][$TaxCatRow[0]]);
@@ -112,7 +112,7 @@ if (!mb_strpos($_SERVER['PHP_SELF'],'PlaceOrder.php')) { //to ensure the script 
 					'" . Date('Y-m-d') . "',
 					0)";
 		$ErrMsg = _('Unable to add the payment surcharge line to the sales order');
-		$Ins_LineItemResult = DB_query($LineItemsSQL,$db,$ErrMsg,$DbgMsg,true);
+		$Ins_LineItemResult = DB_query($LineItemsSQL,$ErrMsg,$DbgMsg,true);
 		$i++;
 	}
 	if($_SESSION['FreightCost']>0){
@@ -126,19 +126,19 @@ if (!mb_strpos($_SERVER['PHP_SELF'],'PlaceOrder.php')) { //to ensure the script 
 					'" . Date('Y-m-d') . "',
 					0)";
 		$ErrMsg = _('Unable to add the freight charge line to the sales order');
-		$Ins_LineItemResult = DB_query($LineItemsSQL,$db,$ErrMsg,$DbgMsg,true);
+		$Ins_LineItemResult = DB_query($LineItemsSQL,$ErrMsg,$DbgMsg,true);
 	}
 
-	$result = DB_Txn_Commit($db);
+	$result = DB_Txn_Commit();
 	if (isset($_SESSION['MessageLog']) AND count($_SESSION['MessageLog']) > 0){
 		$OrderError = true;
 	} else {
 		$_SESSION['OrderPlaced'] = true;
-		SendConfirmationEmail($OrderNo,$db);
+		SendConfirmationEmail($OrderNo);
 	}
 }
 
-function SendConfirmationEmail($OrderNo, $db){
+function SendConfirmationEmail($OrderNo){
 
 	//Get Out if we have no order number to work with
 	If (!isset($OrderNo) OR $OrderNo==''){

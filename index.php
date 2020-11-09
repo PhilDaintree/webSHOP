@@ -150,7 +150,7 @@ if (isset($_GET['Page'])){
 									mbflag,
 									units,
 									salescatid";
-	
+
 
 	if ($_SESSION['ShopShowOnlyAvailableItems'] != 0){/* We should show only items with QOH > 0 */
 		$SQL .= " HAVING sum(locstock.quantity) > 0";
@@ -160,7 +160,7 @@ if (isset($_GET['Page'])){
 	//echo $SQL;
 	//exit;
 
-	$ItemsToDisplayResult = DB_query($SQL,$db,_('Could not get the items to display for this category because'));
+	$ItemsToDisplayResult = DB_query($SQL,_('Could not get the items to display for this category because'));
 
 	$ItemsToDisplay =0; //counter for how many items were actually displayed
 

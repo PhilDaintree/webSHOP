@@ -23,7 +23,7 @@ if (mb_strlen($_POST['UserEmail']) < 5 OR !IsEmailAddress($_POST['UserEmail'])) 
 			AND customerid<>''";
 
 	$PasswordVerified = false;
-	$Auth_Result = DB_query($sql,$db);
+	$Auth_Result = DB_query($sql);
 
 	if (DB_num_rows($Auth_Result) > 0) {
 		$LoginRow = DB_fetch_array($Auth_Result);
@@ -50,5 +50,4 @@ if (mb_strlen($_POST['UserEmail']) < 5 OR !IsEmailAddress($_POST['UserEmail'])) 
 		message_log(_('We would like to do business with you but these login credentials are unknown to us.') . ' Password = ' . $Password . ' Hasd from DB = ' . $$loginRow['password'],'error');
 	}
 }
-
 ?>

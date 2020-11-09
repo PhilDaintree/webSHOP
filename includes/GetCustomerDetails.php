@@ -44,7 +44,7 @@ $sql = "SELECT name,
 		WHERE debtorsmaster.debtorno='" . $_SESSION['ShopDebtorNo'] . "'
 		AND custbranch.branchcode='" . $_SESSION['ShopBranchCode'] . "'";
 $ErrMsg = _('An error occurred accessing the default customer configuration');
-$ReadCustomerDefaultsResult = DB_query($sql,$db,$ErrMsg);
+$ReadCustomerDefaultsResult = DB_query($sql,$ErrMsg);
 
 if (DB_num_rows($ReadCustomerDefaultsResult)==0) {
 	print_r($_SESSION);
@@ -77,13 +77,13 @@ $SQL = "SELECT taxgrouptaxes.calculationorder,
 			ORDER BY taxauthrates.taxcatid, taxgrouptaxes.calculationorder";
 
 /*Figure out effective total tax rate for each tax category */
-$TaxesResult = DB_query($SQL,$db);
+$TaxesResult = DB_query($SQL);
 $_SESSION['TaxRates'] = array();
 while ($TaxRow = DB_fetch_array($TaxesResult)){
 	if (!isset($_SESSION['TaxRates'][$TaxRow['taxcatid']])){
 		$_SESSION['TaxRates'][$TaxRow['taxcatid']] = 0;
 	}
-	if ($TaxRow['taxontax']==1) { //if tax on tax add taxrate x current total of taxes	
+	if ($TaxRow['taxontax']==1) { //if tax on tax add taxrate x current total of taxes
 		$_SESSION['TaxRates'][$TaxRow['taxcatid']] += ($TaxRow['taxrate']*$_SESSION['TaxRates'][$TaxRow['taxcatid']]);
 	}
 	$_SESSION['TaxRates'][$TaxRow['taxcatid']] += $TaxRow['taxrate'];  // add all taxes together for this taxgroup

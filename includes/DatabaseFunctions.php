@@ -42,7 +42,6 @@ require_once ($PathPrefix .'includes/MiscFunctions.php');
 //DB wrapper functions to change only once for whole application
 
 function DB_query ($SQL,
-		&$Conn,
 		$ErrorMessage='',
 		$DebugMessage= '',
 		$Transaction=false,
@@ -50,26 +49,27 @@ function DB_query ($SQL,
 
 	global $debug;
 	global $PathPrefix;
+	global $db;
 
 
-	$result=mysqli_query($Conn, $SQL);
+	$result=mysqli_query($db, $SQL);
 
-	$_SESSION['LastInsertId'] = mysqli_insert_id($Conn);
+	$_SESSION['LastInsertId'] = mysqli_insert_id($db);
 
 	if ($DebugMessage == '') {
 		$DebugMessage = _('The SQL that failed was');
 	}
 
-	if (DB_error_no($Conn) != 0 AND $TrapErrors==true){
+	if (DB_error_no() != 0 AND $TrapErrors==true){
 
-		message_log($ErrorMessage . '<br />' . DB_error_msg($Conn),'error');
+		message_log($ErrorMessage . '<br />' . DB_error_msg($db),'error');
 		if ($debug==1){
 			message_log($DebugMessage. '<br />' . $SQL . '<br />','error');
 		}
 		if ($Transaction){
 			$SQL = 'rollback';
-			$Result = DB_query($SQL,$Conn);
-			if (DB_error_no($Conn) !=0){
+			$Result = DB_query($SQL);
+			if (DB_error_no() !=0){
 				message_log(_('Error Rolling Back Transaction'), 'error');
 			}
 		}
@@ -109,14 +109,16 @@ function DB_affected_rows(&$ResultIndex){
 	global $db;
 	return mysqli_affected_rows($db);
 }
-function DB_error_no (&$Conn){
-	return mysqli_errno($Conn);
+function DB_error_no (){
+	global $db;
+	return mysqli_errno($db);
 }
 
-function DB_error_msg(&$Conn){
-	return mysqli_error($Conn);
+function DB_error_msg(){
+	global $db;
+	return mysqli_error($db);
 }
-function DB_Last_Insert_ID(&$Conn, $Table, $FieldName){
+function DB_Last_Insert_ID($Table, $FieldName){
 //	return mysqli_insert_id($Conn);
 	if (isset($_SESSION['LastInsertId'])) {
 		$Last_Insert_ID = $_SESSION['LastInsertId'];
@@ -131,10 +133,12 @@ function DB_escape_string($String){
 	global $db;
 	return mysqli_real_escape_string($db, htmlspecialchars($String, ENT_COMPAT,'utf-8', false));
 }
-function DB_Txn_Begin($db){
+function DB_Txn_Begin(){
+	global $db;
 	$result=mysqli_query($db,"BEGIN");
 }
-function DB_Txn_Commit($db){
+function DB_Txn_Commit(){
+	global $db;
 	$result=mysqli_query($db,"COMMIT");
 }
 
