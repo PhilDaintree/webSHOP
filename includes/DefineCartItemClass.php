@@ -1,7 +1,7 @@
 <?php
 
 class CartItem {
-	
+
 	var $StockID;
 	var $Description;
 	var $LongDescription;
@@ -14,8 +14,8 @@ class CartItem {
 	var $MBFlag;
 	var $DiscountCategory;
 	var $Discount;
-	
-	function CartItem ($StockID,
+
+	function __construct ($StockID,
 						$Description,
 						$LongDescription,
 						$PriceExcl,
@@ -27,7 +27,7 @@ class CartItem {
 						$Volume,
 						$MBFlag,
 						$Discount) {
-							
+
 		$this->StockID = $StockID;
 		$this->Description = $Description;
 		$this->LongDescription = $LongDescription;
@@ -44,11 +44,11 @@ class CartItem {
 }
 
 class Message {
-	
+
 	var $MessageText;
 	var $Severity;
-	
-	function Message ($MessageText, $Severity) {
+
+	function __construct ($MessageText, $Severity) {
 		$this->MessageText = $MessageText;
 		$this->Severity = $Severity;
 	}

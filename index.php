@@ -84,7 +84,7 @@ ShowSalesCategoriesMenu();
 include('includes/InfoLinks.php');
 
 if (isset($_GET['Page'])){
-	if ($_GET['Page']=='ShoppingCart'){
+	if ($_GET['Page']=='ShoppingCart'){  //user selected to see the cart
 		echo ' <div class="column_main">
 					<h1>' . _('Order Details') . '</h1>';
 		//code to display the cart
@@ -101,7 +101,7 @@ if (isset($_GET['Page'])){
 		}
 	} // $_GET['Page'] != ShoppingCart
 
-} else {
+} else { //show the featured items by default or if a category is selected show that category of products
 
 	$SQL = "SELECT stockmaster.stockid,
 							description,
